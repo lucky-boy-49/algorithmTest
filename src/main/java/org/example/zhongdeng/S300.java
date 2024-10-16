@@ -14,7 +14,7 @@ public class S300 {
                 }
             }
             if (j == -1) {
-                dp[i] = Math.max(dp[i], 1);;
+                dp[i] = Math.max(dp[i], 1);
             }
         }
         return Arrays.stream(dp).max().getAsInt();
