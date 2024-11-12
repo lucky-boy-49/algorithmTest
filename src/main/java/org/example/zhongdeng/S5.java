@@ -48,4 +48,34 @@ public class S5 {
         }
         return s.substring(begin, begin + maxLen);
     }
+    public String longestPalindrome2(String s) {
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        if (s.length() < 2) {
+            return s;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            dp[i][i] = true;
+        }
+        int maxLen = 1, begin = 0;
+        for (int i = 2; i <= s.length(); i++) {
+            for (int j = 0; j < s.length(); j++) {
+                int k = j + i - 1;
+                if (k >= s.length()) break;
+                if (s.charAt(j) != s.charAt(k)) {
+                    dp[j][k] = false;
+                } else {
+                    if (k - j < 3) {
+                        dp[j][k] = true;
+                    } else {
+                        dp[j][k] = dp[j + 1][k - 1];
+                    }
+                }
+                if (dp[j][k] && k - j + 1 > maxLen) {
+                    maxLen = k - j + 1;
+                    begin = j;
+                }
+            }
+        }
+        return s.substring(begin, begin + maxLen);
+    }
 }
