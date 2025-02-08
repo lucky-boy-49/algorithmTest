@@ -9,10 +9,7 @@ public class S168 {
         while (columnNumber > 0) {
             int current = (columnNumber - 1) % 26;
             columnNumber = (columnNumber - 1) / 26;
-            char character;
-
-            character = (char) ('A' + current);
-            result.insert(0, character);
+            result.insert(0, (char) ('A' + current));
         }
         return result.toString();
     }
