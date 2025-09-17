@@ -1,6 +1,5 @@
 package org.example.kunnan;
 
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,34 +9,36 @@ import java.util.List;
 public class S2197 {
 
     public List<Integer> replaceNonCoprimes(int[] nums) {
-        Deque<Integer> s = new LinkedList<>();
-        for (int i = 0; i < nums.length; i++) {
-            int last = s.isEmpty() ? 1 : s.pollFirst();
+
+        int tcp = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int last = nums[tcp];
             if (getGCD(last, nums[i]) == 1) {
-                if (i != 0) {
-                    s.push(last);
-                }
-                s.push(nums[i]);
+                nums[++tcp] = nums[i];
             } else {
-                s.push((int) getLCM(last, nums[i]));
+                nums[tcp] = (int) getLCM(last, nums[i]);
             }
-            while (!s.isEmpty() && s.size() >= 2) {
-                Integer one = s.pollFirst();
-                Integer two = s.pollFirst();
+
+            for (int tcp1 = tcp; tcp1 >= 1; tcp1--) {
+                int one = nums[tcp1];
+                int two = nums[tcp1 - 1];
                 if (getGCD(one, two) == 1) {
-                    s.push(two);
-                    s.push(one);
+                    tcp = tcp1;
                     break;
                 } else {
-                    s.push((int) getLCM(one, two));
+                    nums[tcp1 - 1] = (int) getLCM(one, two);
+                    tcp = tcp1 - 1;
                 }
             }
+
         }
+
         List<Integer> ans = new LinkedList<>();
-        while (!s.isEmpty()) {
-            ans.add(s.pollLast());
+        for (int i = 0; i <= tcp; i++) {
+            ans.add(nums[i]);
         }
         return ans;
+
     }
 
     private long getLCM(int num1, int num2) {
