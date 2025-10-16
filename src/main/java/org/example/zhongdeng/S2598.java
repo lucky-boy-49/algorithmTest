@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
  */
 public class S2598 {
     public int findSmallestInteger(int[] nums, int value) {
+        // 测试
         return Arrays.stream(nums).parallel()
                 // 取模, 注意避免负数
                 .map(num -> (num % value + value) % value)
