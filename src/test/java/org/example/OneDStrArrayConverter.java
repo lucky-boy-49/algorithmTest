@@ -8,6 +8,6 @@ public class OneDStrArrayConverter implements ArgumentConverter {
     @Override
     public Object convert(Object source, ParameterContext context) throws ArgumentConversionException {
         String data = (String) source;
-        return data.substring(1, data.length() - 1).split(",");
+        return data.substring(1, data.length() - 1).replace("\"", "").split(",");
     }
 }
